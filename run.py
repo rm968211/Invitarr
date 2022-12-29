@@ -132,5 +132,5 @@ async def setuplibs(ctx):
         await ctx.author.send("Bot has been restarted. Give it a few seconds. Please check logs and make sure you see the line: `Logged into plex`. If not run this command again and make sure you enter the right values. ")
         print("Bot has been restarted. Give it a few seconds.")
 
-bot.load_extension(f'app.bot.cogs.app')
+await bot.load_extension(f'app.bot.cogs.app')
 bot.run(Discord_bot_token)
