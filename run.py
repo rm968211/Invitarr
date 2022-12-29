@@ -30,10 +30,14 @@ intents.members = True
 bot = commands.Bot(command_prefix=".", intents = intents)
 bot.remove_command('help')
 
+async def main():
+    async with bot:
+        await bot.load_extension(f'app.bot.cogs.app')
+        await bot.start(Discord_bot_token)
+
 @bot.event
 async def on_ready():
     print("bot is online.")
-
 
 @bot.event
 async def on_message(message):
@@ -43,8 +47,8 @@ async def on_message(message):
         return
     await bot.process_commands(message)
 
-def reload():
-    bot.reload_extension(f'app.bot.cogs.app')
+async def reload():
+    await bot.reload_extension(f'app.bot.cogs.app')
 
 async def getplex(ctx, message):
     username = None
@@ -132,5 +136,4 @@ async def setuplibs(ctx):
         await ctx.author.send("Bot has been restarted. Give it a few seconds. Please check logs and make sure you see the line: `Logged into plex`. If not run this command again and make sure you enter the right values. ")
         print("Bot has been restarted. Give it a few seconds.")
 
-await bot.load_extension(f'app.bot.cogs.app')
-bot.run(Discord_bot_token)
+asyncio.run(main())
